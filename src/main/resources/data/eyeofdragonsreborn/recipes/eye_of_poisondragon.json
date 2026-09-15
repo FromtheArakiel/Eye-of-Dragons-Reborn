@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "poison_dragons"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "poison_dragons:poison_dragon_heart"
+    }
+  ],
+  "result": {
+    "item": "eyeofdragonsreborn:eye_of_poisondragon",
+    "count": 1
+  }
+}

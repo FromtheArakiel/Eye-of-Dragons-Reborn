@@ -27,6 +27,10 @@ public class EyeOfDragonsRebornMod {
                     output.accept(ItemInit.EYE_OF_FIREDRAGON.get());
                     output.accept(ItemInit.EYE_OF_ICEDRAGON.get());
                     output.accept(ItemInit.EYE_OF_LIGHTNINGDRAGON.get());
+
+                    if (ItemInit.EYE_OF_POISONDRAGON != null) {
+                        output.accept(ItemInit.EYE_OF_POISONDRAGON.get());
+                    }
                 })
                 .build());
     }
