@@ -3,6 +3,7 @@ package iafeyes.eyeofdragonsreborn;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -26,11 +27,33 @@ public abstract class ItemEyeBase extends Item {
 
         player.startUsingItem(hand);
 
-        if (!level.isClientSide() && level.dimension() == Level.OVERWORLD) {
+        if (!level.isClientSide()) {
+            if (!isDimensionAllowed(level)) {
+                player.displayClientMessage(
+                        Component.translatable("item.eyeofdragonsreborn.dragon_eye.wrong_dimension"),
+                        true);
+                return InteractionResultHolder.success(itemstack);
+            }
             findDragonAndShoot(level, player, itemstack);
         }
 
         return InteractionResultHolder.success(itemstack);
+    }
+
+    private boolean isDimensionAllowed(Level level) {
+        ResourceLocation dimId = level.dimension().location();
+        String id = dimId.toString();
+
+        List<? extends String> list = EyeOfDragonsRebornConfig.DIMENSION_LIST.get();
+        boolean useWhitelist = EyeOfDragonsRebornConfig.USE_DIMENSION_WHITELIST.get();
+
+        boolean inList = list.contains(id);
+
+        if (useWhitelist) {
+            return inList;
+        } else {
+            return !inList;
+        }
     }
 
     protected abstract List<Entity> getNearbyEntities(Level level, Player player);
