@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.2.0"
+group = "iafeyes.eyeofdragonsreborn"
+archivesBaseName = "eyeofdragonsreborn"
+sourceCompatibility = targetCompatibility = "1.8"
+
+minecraft {
+    version = "1.12.2-14.23.5.2768"
+    runDir = "run"
+    mappings = "stable_39"
+    makeObfSourceJar = true
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    deobfCompile "blank:llibrary-1.7.20-1.12.2:1.0.0"
+    deobfCompile "blank:iceandfire-1.9.1-1.12.2:1.0.0"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title"     : "eyeofdragonsreborn",
+            "Specification-Vendor"    : "iafeyes",
+            "Specification-Version"   : "1",
+            "Implementation-Title"    : project.name,
+            "Implementation-Version"  : "${version}",
+            "Implementation-Vendor"   : "iafeyes",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')

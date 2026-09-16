@@ -1,0 +1,5 @@
+item.eyeofdragonsreborn.eye_of_firedragon.name=Feuerdrachenauge
+item.eyeofdragonsreborn.eye_of_icedragon.name=Eisdrachenauge
+itemGroup.eyeofdragonsreborn=Drachenaugen
+eyeofdragonsreborn.dragon_eye.nonfound=Das Auge verharrt bewegungslos; es müssen keine Drachen in der Nähe sein
+eyeofdragonsreborn.dragon_eye.wrong_dimension=Die Kraft des Drachenauges wird hier unterdrückt...

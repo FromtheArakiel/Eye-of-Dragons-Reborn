@@ -1,0 +1,7 @@
+build/
+.gradle/
+libs/
+lib/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar

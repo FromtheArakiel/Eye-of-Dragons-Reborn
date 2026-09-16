@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "eyeofdragonsreborn",
+    "name": "Eye of Dragons Reborn",
+    "description": "Adds Eye of Dragons to find Ice and Fire dragons.",
+    "version": "1.2.0",
+    "mcversion": "1.12.2",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["FromtheArakiel"],
+    "credits": "Based on the original Eye of Dragons mod.",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": ["iceandfire", "llibrary"]
+  }
+]
