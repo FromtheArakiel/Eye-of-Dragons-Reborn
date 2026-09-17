@@ -4,6 +4,6 @@
   "item.eyeofdragonsreborn.eye_of_lightningdragon": "Eye of Lightning Dragon",
   "item.eyeofdragonsreborn.eye_of_poisondragon": "Eye of Poison Dragon",
   "itemGroup.eyeofdragonsreborn": "Eye of Dragons",
-  "item.eyeofdragonsreborn.dragon_eye.nonfound": "The eye remains motionless; there must be no nearby dragons",
-  "item.eyeofdragonsreborn.dragon_eye.wrong_dimension": "The power of the dragon eye is suppressed here..."
+  "eyeofdragonsreborn.dragon_eye.nonfound": "The eye remains motionless; there must be no nearby dragons",
+  "eyeofdragonsreborn.dragon_eye.wrong_dimension": "The power of the dragon eye is suppressed here..."
 }

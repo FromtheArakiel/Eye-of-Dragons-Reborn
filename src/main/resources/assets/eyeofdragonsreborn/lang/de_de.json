@@ -4,6 +4,6 @@
   "item.eyeofdragonsreborn.eye_of_lightningdragon": "Blitzdrachenauge",
   "item.eyeofdragonsreborn.eye_of_poisondragon": "Giftdrachenauge",
   "itemGroup.eyeofdragonsreborn": "Drachenaugen",
-  "item.eyeofdragonsreborn.dragon_eye.nonfound": "Das Auge verharrt bewegungslos; es müssen keine Drachen in der Nähe sein",
-  "item.eyeofdragonsreborn.dragon_eye.wrong_dimension": "Die Kraft des Drachenauges wird hier unterdrückt..."
+  "eyeofdragonsreborn.dragon_eye.nonfound": "Das Auge verharrt bewegungslos; es müssen keine Drachen in der Nähe sein",
+  "eyeofdragonsreborn.dragon_eye.wrong_dimension": "Die Kraft des Drachenauges wird hier unterdrückt..."
 }
