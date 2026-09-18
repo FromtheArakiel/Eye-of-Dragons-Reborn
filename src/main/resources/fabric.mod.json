@@ -16,6 +16,6 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*",
-		"iceandfire": ">=2.0.0"
+		"iceandfire": ">=1.0.0"
 	}
 }
