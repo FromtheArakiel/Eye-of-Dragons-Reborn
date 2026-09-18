@@ -13,13 +13,22 @@ import java.util.List;
 public class EyeOfDragonsRebornConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = FabricLoader.getInstance()
-            .getConfigDir().resolve("eyeofdragonsreborn.json");
+            .getConfigDir()
+            .resolve("eyeofdragonsreborn")
+            .resolve("eyeofdragonsreborn.json");
 
     public static final EyeConfig FIRE_DRAGON_EYE = new EyeConfig();
     public static final EyeConfig ICE_DRAGON_EYE = new EyeConfig();
     public static final EyeConfig LIGHTNING_DRAGON_EYE = new EyeConfig();
 
     public static void load() {
+        try {
+            Files.createDirectories(CONFIG_PATH.getParent());
+        } catch (IOException e) {
+            EyeOfDragonsRebornMod.LOGGER.error("Failed to create config directory", e);
+            return;
+        }
+
         if (Files.exists(CONFIG_PATH)) {
             try {
                 String json = Files.readString(CONFIG_PATH);
