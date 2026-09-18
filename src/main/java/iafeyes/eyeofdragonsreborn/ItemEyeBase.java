@@ -3,7 +3,6 @@ package iafeyes.eyeofdragonsreborn;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,14 +20,33 @@ public abstract class ItemEyeBase extends Item {
         super(properties);
     }
 
+    protected abstract EyeOfDragonsRebornConfig.EyeConfig getEyeConfig();
+
+    protected boolean isDragonEntity(Entity entity) {
+        return entity instanceof EntityDragonBase;
+    }
+
+    protected boolean isDragonDead(Entity entity) {
+        return entity instanceof EntityDragonBase dragon && dragon.isMobDead();
+    }
+
+    protected boolean isDragonTamed(Entity entity) {
+        return entity instanceof EntityDragonBase dragon && dragon.isTame();
+    }
+
+    protected int getDragonStage(Entity entity) {
+        return entity instanceof EntityDragonBase dragon ? dragon.getDragonStage() : 0;
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-
         player.startUsingItem(hand);
 
         if (!level.isClientSide()) {
-            if (!isDimensionAllowed(level)) {
+            String dimId = level.dimension().location().toString();
+            EyeOfDragonsRebornConfig.EyeConfig config = getEyeConfig();
+            if (!config.isDimensionAllowed(dimId)) {
                 player.displayClientMessage(
                         Component.translatable("eyeofdragonsreborn.dragon_eye.wrong_dimension"),
                         true);
@@ -40,42 +58,27 @@ public abstract class ItemEyeBase extends Item {
         return InteractionResultHolder.success(itemstack);
     }
 
-    private boolean isDimensionAllowed(Level level) {
-        ResourceLocation dimId = level.dimension().location();
-        String id = dimId.toString();
-
-        List<? extends String> list = EyeOfDragonsRebornConfig.DIMENSION_LIST.get();
-        boolean useWhitelist = EyeOfDragonsRebornConfig.USE_DIMENSION_WHITELIST.get();
-
-        boolean inList = list.contains(id);
-
-        if (useWhitelist) {
-            return inList;
-        } else {
-            return !inList;
-        }
-    }
-
     protected abstract List<Entity> getNearbyEntities(Level level, Player player);
 
     private void findDragonAndShoot(Level level, Player player, ItemStack itemstack) {
         List<Entity> entities = getNearbyEntities(level, player);
 
-        boolean filterDead = EyeOfDragonsRebornConfig.FILTER_DEAD_DRAGONS.get();
-        boolean filterTamed = EyeOfDragonsRebornConfig.FILTER_TAMED_DRAGONS.get();
+        EyeOfDragonsRebornConfig.EyeConfig config = getEyeConfig();
+        boolean filterDead = config.filterDeadDragons.get();
+        boolean filterTamed = config.filterTamedDragons.get();
 
         entities = entities.stream()
                 .filter(e -> {
-                    if (e instanceof EntityDragonBase dragon) {
-                        if (filterDead && dragon.isMobDead()) {
-                            return false;
-                        }
-                        if (filterTamed && dragon.isTame()) {
-                            return false;
-                        }
-                        return EyeOfDragonsRebornConfig.isStageAllowed(dragon.getDragonStage());
+                    if (!isDragonEntity(e)) {
+                        return true;
                     }
-                    return true;
+                    if (filterDead && isDragonDead(e)) {
+                        return false;
+                    }
+                    if (filterTamed && isDragonTamed(e)) {
+                        return false;
+                    }
+                    return config.isStageAllowed(getDragonStage(e));
                 })
                 .toList();
 

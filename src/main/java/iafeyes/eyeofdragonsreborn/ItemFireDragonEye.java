@@ -15,9 +15,14 @@ public class ItemFireDragonEye extends ItemEyeBase {
     }
 
     @Override
+    protected EyeOfDragonsRebornConfig.EyeConfig getEyeConfig() {
+        return EyeOfDragonsRebornConfig.FIRE_DRAGON_EYE;
+    }
+
+    @Override
     protected List<Entity> getNearbyEntities(Level level, Player player) {
         ResourceLocation dimId = level.dimension().location();
-        int radius = EyeOfDragonsRebornConfig.getSearchRadiusForDimension(dimId.toString());
+        int radius = getEyeConfig().getSearchRadiusForDimension(dimId.toString());
         AABB bb = new AABB(player.blockPosition()).inflate(radius);
         return level.getEntitiesOfClass(EntityFireDragon.class, bb).stream().map(e -> (Entity) e).toList();
     }

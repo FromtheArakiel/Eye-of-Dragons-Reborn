@@ -54,11 +54,11 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    // ===== 本地 jar 依赖 =====
     implementation fg.deobf("libs:IceAndFireCE-1.2.8-1.20.1-forge:1.0.0")
     implementation fg.deobf("libs:jupiter-2.3.7-1.20.1-forge:1.0.0")
     implementation fg.deobf("libs:uranus-2.2.6-bugfix.2-1.20.1-forge:1.0.0")
     implementation fg.deobf("libs:architectury-9.2.14-forge:1.0.0")
+    implementation fg.deobf("libs:citadel-2.6.3-1.20.1:1.0.0")
     implementation fg.deobf("libs:poison_dragons-0.5:1.0.0")
 }
 
