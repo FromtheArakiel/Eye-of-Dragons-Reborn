@@ -10,6 +10,7 @@ logoFile="assets/eyeofdragons/logo.png"
 credits=""
 authors="${mod_authors}"
 description='''${mod_description}'''
+logoFile="logo.png"
 
 [[dependencies.${mod_id}]]
     modId="forge"
