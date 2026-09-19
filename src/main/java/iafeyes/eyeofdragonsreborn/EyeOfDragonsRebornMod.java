@@ -8,7 +8,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Mod(EyeOfDragonsRebornMod.MODID)
 public class EyeOfDragonsRebornMod {
@@ -33,6 +38,16 @@ public class EyeOfDragonsRebornMod {
         ItemInit.ITEMS.register(bus);
         CREATIVE_TABS.register(bus);
 
-        container.registerConfig(ModConfig.Type.COMMON, EyeOfDragonsRebornConfig.SPEC);
+        Path configDir = FMLPaths.CONFIGDIR.get().resolve(MODID);
+        try {
+            Files.createDirectories(configDir);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create config directory for " + MODID, e);
+        }
+
+        container.registerConfig(
+                ModConfig.Type.COMMON,
+                EyeOfDragonsRebornConfig.SPEC,
+                MODID + "/" + MODID + "-common.toml");
     }
 }
